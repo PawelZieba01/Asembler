@@ -1,0 +1,142 @@
+		MOV R0, #0x4B  	;62 271‬  L
+		MOV R1, #0xEA		;62 271‬  H
+		MOV R2, #0
+		MOV R3, #0
+		MOV R4, #0
+		MOV R5, #0
+
+		MOV R6, #16
+
+loop:
+;@@@@@@@@@@@@@@@@@@@@@@@	
+
+		MOV A, R2
+		ANL A, #0x0F
+		MOV B, A
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, B
+		JC lt5_1
+		ADD A, #0x03
+lt5_1:
+		MOV B, A
+
+
+		MOV A, R2
+		ANL A, #0xF0
+		SWAP A
+		MOV R5, A	
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, R5
+		JC lt5_2	
+		ADD A, #0x03
+lt5_2:
+		SWAP A
+		ADD A, B
+	
+		MOV R2, A
+
+
+
+;@@@@@@@@@@@@@@@@@@@@@@@
+
+
+		MOV A, R3
+		ANL A, #0x0F
+		MOV B, A
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, B
+		JC lt5_3
+		ADD A, #0x03
+lt5_3:
+		MOV B, A
+
+
+		MOV A, R3
+		ANL A, #0xF0
+		SWAP A
+		MOV R5, A	
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, R5
+		JC lt5_4	
+		ADD A, #0x03
+lt5_4:
+		SWAP A
+		ADD A, B
+	
+		MOV R3, A
+
+
+;@@@@@@@@@@@@@@@@@@@@@@@
+
+
+		MOV A, R4
+		ANL A, #0x0F
+		MOV B, A
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, B
+		JC lt5_5
+		ADD A, #0x03
+lt5_5:
+		MOV B, A
+
+
+		MOV A, R4
+		ANL A, #0xF0
+		SWAP A
+		MOV R5, A	
+
+		CLR C
+		SUBB A, #0x05
+		MOV A, R5
+		JC lt5_6
+		ADD A, #0x03
+lt5_6:
+		SWAP A
+		ADD A, B
+	
+		MOV R4, A
+
+
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+		CLR C
+
+		MOV A, R0		;przesunięcie w lewo młodszego bajtu
+		RLC A
+		MOV R0, A
+
+		MOV A, R1		;przesunięcie w lewo młodszego bajtu
+		RLC A
+		MOV R1, A
+;
+		MOV A, R2		;przesunięcie rejestru z liczbą 10s i 1s
+		RLC A
+		MOV R2, A
+
+		MOV A, R3		;przesunięcie rejestru z liczbą 1000s i 100s
+		RLC A
+		MOV R3, A
+
+		MOV A, R4		;przesunięcie rejestru z liczbą 100000s i 10000s
+		RLC A
+		MOV R4, A
+	
+		DJNZ R6, loop
+	
+
+		MOV R5, #0
+		MOV R6, #0
+		JMP $
